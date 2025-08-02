@@ -2,7 +2,7 @@ const userModel = require('../models/user.model')
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs")
 
-async function registerController(req, res) { 
+async function registerController(req, res) {
       const { username, password } = req.body;
 
       const existingUser = await userModel.findOne({
@@ -35,7 +35,7 @@ async function registerController(req, res) {
       });
 }
 
-async function loginController(req,res) { 
+async function loginController(req,res) {
         const { username, password } = req.body;
 
         const user = await userModel.findOne({
@@ -71,7 +71,7 @@ async function loginController(req,res) {
         });
 }
 
-async function getUserController(req,res) { 
+async function getUserController(req,res) {
         const token = req.cookies.token;
 
         if (!token) {
@@ -82,7 +82,7 @@ async function getUserController(req,res) {
 
         try {
           const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        } catch (error) {} 
+        } catch (error) {}
 }
 
 
@@ -91,3 +91,4 @@ module.exports = {
     loginController,
     getUserController
 }
+

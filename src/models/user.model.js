@@ -13,3 +13,4 @@ const userSchema = new mongoose.Schema({
 
 const postModel = mongoose.model("user", userSchema)
 module.exports = postModel
+
