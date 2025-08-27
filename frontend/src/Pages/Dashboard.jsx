@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import axios from 'axios'
 
 export default function Dashboard() {
   const [image, setImage] = useState(null);
@@ -38,30 +39,24 @@ export default function Dashboard() {
   };
 
   const handleUpload = async () => {
-    if (!image) return;
-    setIsLoading(true);
-
-    // Simulate API call
-    setTimeout(() => {
-      setCaption(
-        "A stunning landscape featuring rolling hills under a dramatic sunset sky, with vibrant orange and purple hues painting the horizon while gentle clouds drift across the expansive view."
-      );
-      setIsLoading(false);
-    }, 2000);
-
-    /* Real implementation:
-    const formData = new FormData();
-    formData.append("image", image);
-
     try {
-      const res = await axios.post("/caption", formData);
-      setCaption(res.data.caption);
-    } catch {
-      alert("Error generating caption");
-    } finally {
-      setIsLoading(false);
+      const formData = new FormData();
+      formData.append("image", image); // 👈 multer yahi field lega
+      formData.append("caption", caption); // optional hai, backend me req.body.caption mil jayega
+
+      const res = await axios.post(
+        "http://localhost:3000/api/posts",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+          withCredentials: true, // cookies ke liye
+        }
+      );
+
+      setCaption(res.data.post.caption); // backend AI se aaya caption dikhane ke liye
+    } catch (error) {
+      console.log("Something went wrong........",error);
     }
-    */
   };
 
   const resetUpload = () => {

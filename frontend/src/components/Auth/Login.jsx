@@ -23,7 +23,9 @@ export default function Login() {
       await axios.post('http://localhost:3000/api/auth/login', {
         username,
         password
-       })
+      }, {
+        withCredentials:true
+      })
       navigate('/dashboard')
       
     } catch (error) {
