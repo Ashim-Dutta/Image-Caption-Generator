@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import axios from 'axios'
+import axios from "axios";
 
 export default function Dashboard() {
   const [image, setImage] = useState(null);
@@ -55,9 +55,11 @@ export default function Dashboard() {
 
       setCaption(res.data.post.caption); // backend AI se aaya caption dikhane ke liye
     } catch (error) {
-      console.log("Something went wrong........",error);
+      console.log("Something went wrong........", error);
     }
   };
+
+
 
   const resetUpload = () => {
     setImage(null);
@@ -69,18 +71,22 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-black relative overflow-hidden">
+    <div className="min-h-screen bg-black  relative overflow-hidden">
+      
+
       {/* Background effects */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900/20 to-slate-900">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-500/20 via-transparent to-transparent" />
       </div>
 
       {/* Grid pattern */}
+      
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f2937_1px,transparent_1px),linear-gradient(to_bottom,#1f2937_1px,transparent_1px)] bg-[size:40px_40px] opacity-20" />
 
       <div className="relative z-10 min-h-screen flex flex-col items-center justify-center p-6">
         {/* Header */}
         <div className="text-center mb-8">
+          
           <h1 className="text-4xl md:text-5xl font-black mb-4">
             <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
               Vision Analysis

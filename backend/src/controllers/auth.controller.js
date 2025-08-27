@@ -85,10 +85,16 @@ async function getUserController(req,res) {
         } catch (error) {}
 }
 
+async function logoutController(req, res) { 
+  res.clearCookie("token")
+  res.status(200).json({message:"logout Successfull"})
+}
+
 
 module.exports = {
     registerController,
     loginController,
-    getUserController
+  getUserController,
+    logoutController
 }
 
