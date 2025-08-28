@@ -15,7 +15,7 @@ app.use(
     credentials: true,
   })
 );
-app.use(express.static(path.join(_dirname, "../public")));
+app.use(express.static(path.join(__dirname, "../public")));
 
 
 app.use('/api/auth', authRoutes)
@@ -23,7 +23,7 @@ app.use('/api/posts', postRoutes)
 
 
 app.get("*name", (req, res) => {
-  res.sendFile(path.join(_dirname, "../public/index.html"));
+  res.sendFile(path.join(__dirname, "../public/index.html"));
 });
 
 
