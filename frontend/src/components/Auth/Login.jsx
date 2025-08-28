@@ -262,7 +262,7 @@ export default function Login() {
               <button
                 type="button"
                 onClick={handleLogin}
-                className="text-blue-400 hover:text-blue-300 font-medium transition-colors"
+                className="text-blue-400 hover:text-blue-300 font-medium transition-colors cursor-pointer"
               >
                 Create one here
               </button>

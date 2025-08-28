@@ -21,9 +21,9 @@ export default function Home() {
         <DarkVeil />
       </div>
 
+      
+
       <div className="min-h-screen relative overflow-hidden bg-black absolute ">
-
-
         {/* Floating orbs */}
         <div className="absolute z-10 inset-0 pointer-events-none">
           <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-green-500/10 rounded-full blur-3xl animate-pulse" />

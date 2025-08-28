@@ -1,5 +1,7 @@
 import { useState, useRef } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+// import { toast} from 'react-toastify'
 
 export default function Dashboard() {
   const [image, setImage] = useState(null);
@@ -8,6 +10,8 @@ export default function Dashboard() {
   const [isLoading, setIsLoading] = useState(false);
   const [dragActive, setDragActive] = useState(false);
   const fileInputRef = useRef(null);
+
+  const navigate = useNavigate();
 
   const handleFileSelect = (file) => {
     if (file && file.type.startsWith("image/")) {
@@ -39,54 +43,77 @@ export default function Dashboard() {
   };
 
   const handleUpload = async () => {
+    if (!image) return;
+    setIsLoading(true);
     try {
       const formData = new FormData();
-      formData.append("image", image); // 👈 multer yahi field lega
-      formData.append("caption", caption); // optional hai, backend me req.body.caption mil jayega
+      formData.append("image", image);
+      formData.append("caption", caption);
 
       const res = await axios.post(
         "http://localhost:3000/api/posts",
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
-          withCredentials: true, // cookies ke liye
+          withCredentials: true,
         }
       );
 
-      setCaption(res.data.post.caption); // backend AI se aaya caption dikhane ke liye
+      setCaption(res.data.post.caption);
     } catch (error) {
       console.log("Something went wrong........", error);
+    } finally {
+      setIsLoading(false);
     }
   };
-
-
 
   const resetUpload = () => {
     setImage(null);
     setImagePreview(null);
     setCaption("");
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
+
+  const handleLogout = async () => {
+    try {
+      await axios.post(
+        "http://localhost:3000/api/auth/logout",
+        {},
+        { withCredentials: true }
+      );
+      // toast.error("Logout Successfull !!")
+      navigate("/");
+    } catch (err) {
+      console.error("Logout failed:", err);
     }
   };
 
   return (
-    <div className="min-h-screen bg-black  relative overflow-hidden">
-      
-
+    <div className="min-h-screen bg-black relative overflow-hidden">
       {/* Background effects */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900/20 to-slate-900">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-500/20 via-transparent to-transparent" />
       </div>
 
       {/* Grid pattern */}
-      
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f2937_1px,transparent_1px),linear-gradient(to_bottom,#1f2937_1px,transparent_1px)] bg-[size:40px_40px] opacity-20" />
 
       <div className="relative z-10 min-h-screen flex flex-col items-center justify-center p-6">
         {/* Header */}
         <div className="text-center mb-8">
-          
+          <button
+            onClick={handleLogout}
+            className="
+              bg-red-600 text-white font-medium py-2 px-5 rounded-lg
+              shadow-md hover:bg-red-700 hover:shadow-lg
+              transition-colors duration-200 ease-in-out
+              absolute z-50 right-[2.5rem]
+              cursor-pointer
+            "
+          >
+            Logout
+          </button>
+
           <h1 className="text-4xl md:text-5xl font-black mb-4">
             <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
               Vision Analysis
@@ -181,15 +208,25 @@ export default function Dashboard() {
               </div>
 
               <div className="flex gap-4">
+                {/* Generate Caption */}
                 <button
                   onClick={handleUpload}
                   disabled={isLoading}
-                  className="flex-1 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 disabled:from-slate-600 disabled:to-slate-600 px-6 py-3 rounded-xl font-semibold text-white transition-all duration-300 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  className="cursor-pointer flex-1
+                    bg-gradient-to-r from-blue-600 to-cyan-600
+                    hover:from-blue-700 hover:to-cyan-700
+                    disabled:from-slate-600 disabled:to-slate-600
+                    px-6 py-3 rounded-xl font-semibold text-white
+                    transition-all duration-200 ease-in-out
+                    disabled:cursor-not-allowed
+                    flex items-center justify-center gap-2
+                    active:scale-95
+                  "
                 >
                   {isLoading ? (
                     <>
                       <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                      Analyzing...
+                      <span className="animate-pulse">Analyzing...</span>
                     </>
                   ) : (
                     <>
@@ -211,9 +248,15 @@ export default function Dashboard() {
                   )}
                 </button>
 
+                {/* Reset */}
                 <button
                   onClick={resetUpload}
-                  className="px-6 py-3 border border-slate-600 rounded-xl font-semibold text-slate-300 hover:bg-slate-800 hover:border-slate-500 transition-all"
+                  className="cursor-pointer px-6 py-3 border border-slate-600
+                    rounded-xl font-semibold text-slate-300
+                    hover:bg-slate-800 hover:border-slate-500
+                    transition-all duration-200 ease-in-out
+                    active:scale-95 flex items-center justify-center gap-2
+                  "
                 >
                   Reset
                 </button>

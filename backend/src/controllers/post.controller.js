@@ -5,7 +5,7 @@ const { v4: uuidv4 } = require("uuid");
 
 async function createPostController(req, res) {
   const file = req.file;
-  console.log("File received:", file);
+
 
   const base64Image = new Buffer.from(file.buffer).toString("base64");
 

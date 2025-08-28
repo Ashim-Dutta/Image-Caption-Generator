@@ -35,6 +35,8 @@ const navigate = useNavigate()
        await axios.post("http://localhost:3000/api/auth/register", {
          username,
          password,
+       }, {
+         withCredentials:true
        });
        navigate("/dashboard");
      } catch (error) {
@@ -268,7 +270,7 @@ const navigate = useNavigate()
             <button
               type="button"
               onClick={handleLogin}
-              className="text-indigo-400 hover:text-indigo-300 font-medium transition-colors"
+              className="text-indigo-400 hover:text-indigo-300 font-medium transition-colors cursor-pointer"
             >
               Sign in here
             </button>
