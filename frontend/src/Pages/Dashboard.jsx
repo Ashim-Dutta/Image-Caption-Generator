@@ -100,32 +100,31 @@ export default function Dashboard() {
 
       <div className="relative z-10 min-h-screen flex flex-col items-center justify-center p-6">
         {/* Header */}
-        <div className="text-center mb-8">
-          <button
-            onClick={handleLogout}
-            className="
-              bg-red-600 text-white font-medium py-2 px-5 rounded-lg
-              shadow-md hover:bg-red-700 hover:shadow-lg
-              transition-colors duration-200 ease-in-out
-              absolute z-50 right-[2.5rem] top-[1rem]
-              cursor-pointer
-            "
-          >
-            Logout
-          </button>
-
-          <h1 className="text-4xl md:text-5xl font-black mb-4">
+        <div className="w-full flex flex-col md:flex-row items-center justify-between mb-8">
+          <h1 className="text-4xl md:text-5xl font-black mb-4 md:mb-0 text-center md:text-left">
             <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
               Vision Analysis
             </span>
           </h1>
-          <p className="text-slate-400 text-lg">
-            Upload an image to generate intelligent captions
-          </p>
+
+          <button
+            onClick={handleLogout}
+            className="
+            bg-red-600 text-white font-medium py-2 px-5 rounded-lg
+            shadow-md hover:bg-red-700 hover:shadow-lg
+            transition-all duration-200 ease-in-out
+          "
+          >
+            Logout
+          </button>
         </div>
 
+        <p className="text-slate-400 text-lg text-center md:text-left">
+          Upload an image to generate intelligent captions
+        </p>
+
         {/* Main upload card */}
-        <div className="bg-slate-900/50 backdrop-blur-xl border border-slate-700/50 rounded-3xl p-8 w-full max-w-2xl shadow-2xl">
+        <div className="bg-slate-900/50 backdrop-blur-xl border border-slate-700/50 rounded-3xl p-8 w-full max-w-2xl shadow-2xl mt-6">
           {!imagePreview ? (
             // Upload area
             <div
@@ -213,15 +212,15 @@ export default function Dashboard() {
                   onClick={handleUpload}
                   disabled={isLoading}
                   className="cursor-pointer flex-1
-                    bg-gradient-to-r from-blue-600 to-cyan-600
-                    hover:from-blue-700 hover:to-cyan-700
-                    disabled:from-slate-600 disabled:to-slate-600
-                    px-6 py-3 rounded-xl font-semibold text-white
-                    transition-all duration-200 ease-in-out
-                    disabled:cursor-not-allowed
-                    flex items-center justify-center gap-2
-                    active:scale-95
-                  "
+                  bg-gradient-to-r from-blue-600 to-cyan-600
+                  hover:from-blue-700 hover:to-cyan-700
+                  disabled:from-slate-600 disabled:to-slate-600
+                  px-6 py-3 rounded-xl font-semibold text-white
+                  transition-all duration-200 ease-in-out
+                  disabled:cursor-not-allowed
+                  flex items-center justify-center gap-2
+                  active:scale-95
+                "
                 >
                   {isLoading ? (
                     <>
@@ -252,11 +251,11 @@ export default function Dashboard() {
                 <button
                   onClick={resetUpload}
                   className="cursor-pointer px-6 py-3 border border-slate-600
-                    rounded-xl font-semibold text-slate-300
-                    hover:bg-slate-800 hover:border-slate-500
-                    transition-all duration-200 ease-in-out
-                    active:scale-95 flex items-center justify-center gap-2
-                  "
+                  rounded-xl font-semibold text-slate-300
+                  hover:bg-slate-800 hover:border-slate-500
+                  transition-all duration-200 ease-in-out
+                  active:scale-95 flex items-center justify-center gap-2
+                "
                 >
                   Reset
                 </button>
@@ -333,4 +332,5 @@ export default function Dashboard() {
       </div>
     </div>
   );
+
 }
