@@ -15,11 +15,11 @@ app.use(
     credentials: true,
   })
 );
+app.use(express.static(path.join(_dirname, "../public")));
 
 
 app.use('/api/auth', authRoutes)
 app.use('/api/posts', postRoutes)
-app.use(express.static(path.join(_dirname, "../public")));
 
 
 app.get("*name", (req, res) => {
