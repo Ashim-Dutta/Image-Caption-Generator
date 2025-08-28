@@ -1,43 +1,40 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios'
+import axios from "axios";
 
 export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSubmit = async () => {
-
     setIsLoading(true);
 
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
 
-
-
     // Simulate API call
     try {
-
-      await axios.post('http://localhost:3000/api/auth/login', {
-        username,
-        password
-      }, {
-        withCredentials:true
-      })
-      navigate('/dashboard')
-      
+      await axios.post(
+        "https://image-caption-generator-yjzl.onrender.com/api/auth/login",
+        {
+          username,
+          password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      navigate("/dashboard");
     } catch (error) {
-      console.log("Something went wrong",error);
+      console.log("Something went wrong", error);
     }
-
   };
 
-  const handleLogin = () => { 
-    navigate('/register')
-  }
-
+  const handleLogin = () => {
+    navigate("/register");
+  };
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden flex items-center justify-center">
@@ -250,9 +247,8 @@ export default function Login() {
             </button>
 
             {/* Divider */}
-           
+
             {/* Social Login */}
-            
           </div>
 
           {/* Sign Up Link */}

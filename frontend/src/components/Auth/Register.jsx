@@ -7,7 +7,7 @@ export default function Register() {
   const [isLoading, setIsLoading] = useState(false);
   const [formErrors, setFormErrors] = useState({});
   const passwordStrength = useRef(0);
-  
+
   const validatePassword = (password) => {
     let strength = 0;
     if (password.length >= 8) strength++;
@@ -15,39 +15,41 @@ export default function Register() {
     if (/[a-z]/.test(password)) strength++;
     if (/[0-9]/.test(password)) strength++;
     if (/[^A-Za-z0-9]/.test(password)) strength++;
-    
+
     passwordStrength.current = strength;
     return strength;
   };
-  
-const navigate = useNavigate()
 
+  const navigate = useNavigate();
 
   const handleSubmit = async () => {
     setIsLoading(true);
     setFormErrors({});
 
-     const username = document.getElementById("username").value;
-     const password = document.getElementById("password").value;
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
 
-     // Simulate API call
-     try {
-       await axios.post("http://localhost:3000/api/auth/register", {
-         username,
-         password,
-       }, {
-         withCredentials:true
-       });
-       navigate("/dashboard");
-     } catch (error) {
-       console.log("Something went wrong", error);
-     }
-   
+    // Simulate API call
+    try {
+      await axios.post(
+        "https://image-caption-generator-yjzl.onrender.com/api/auth/register",
+        {
+          username,
+          password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      navigate("/dashboard");
+    } catch (error) {
+      console.log("Something went wrong", error);
+    }
   };
 
-  const handleLogin = () => { 
-    navigate('/login')
-  }
+  const handleLogin = () => {
+    navigate("/login");
+  };
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden flex items-center justify-center">
@@ -155,7 +157,6 @@ const navigate = useNavigate()
             )}
           </div>
 
-         
           {/* Password */}
           <div className="space-y-2">
             <label
@@ -219,15 +220,7 @@ const navigate = useNavigate()
                 )}
               </button>
             </div>
-
-            
-         
-
-           
           </div>
-
-
-
 
           {/* Create Account Button */}
           <button
@@ -259,9 +252,7 @@ const navigate = useNavigate()
               </>
             )}
           </button>
-
-          
-        </div> 
+        </div>
 
         {/* Login Link */}
         <div className="text-center mt-6">

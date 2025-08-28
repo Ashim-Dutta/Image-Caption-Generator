@@ -51,7 +51,7 @@ export default function Dashboard() {
       formData.append("caption", caption);
 
       const res = await axios.post(
-        "http://localhost:3000/api/posts",
+        "https://image-caption-generator-yjzl.onrender.com/api/posts",
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
@@ -77,7 +77,7 @@ export default function Dashboard() {
   const handleLogout = async () => {
     try {
       await axios.post(
-        "http://localhost:3000/api/auth/logout",
+        "https://image-caption-generator-yjzl.onrender.com/api/auth/logout",
         {},
         { withCredentials: true }
       );

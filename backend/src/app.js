@@ -3,6 +3,7 @@ const authRoutes = require("./routes/auth.routes")
 const postRoutes = require('./routes/posts.routes')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
+const path = require('path')
 
 
 const app = express()
@@ -17,6 +18,13 @@ app.use(
 
 
 app.use('/api/auth', authRoutes)
-app.use('/api/posts',postRoutes)
+app.use('/api/posts', postRoutes)
+app.use(express.static(path.join(_dirname, "../public")));
+
+
+app.get("*name", (req, res) => {
+  res.sendFile(path.join(_dirname, "../public/index.html"));
+});
+
 
 module.exports = app
