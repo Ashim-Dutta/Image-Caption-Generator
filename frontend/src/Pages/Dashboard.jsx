@@ -107,7 +107,7 @@ export default function Dashboard() {
               bg-red-600 text-white font-medium py-2 px-5 rounded-lg
               shadow-md hover:bg-red-700 hover:shadow-lg
               transition-colors duration-200 ease-in-out
-              absolute z-50 right-[2.5rem]
+              absolute z-50 right-[2.5rem] top-[1rem]
               cursor-pointer
             "
           >
